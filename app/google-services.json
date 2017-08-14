@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "58351333705",
+    "firebase_url": "https://dental-management-system.firebaseio.com",
+    "project_id": "dental-management-system",
+    "storage_bucket": "dental-management-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58351333705:android:ca997ad28c56240f",
+        "android_client_info": {
+          "package_name": "com.ap.dentalmanagementsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58351333705-ifmu7i3sjm31h6jiqvba4ct30cdkaqcg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdsd_XO726Vy-R1Q0828yEsFWWqSf1uQM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

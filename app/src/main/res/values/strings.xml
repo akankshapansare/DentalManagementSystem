@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Dental Management System</string>
+    <string name="type_prompt">Type</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="search_hint">Search Patient</string>
+    <string name="action_search">Search Patient</string>
+
+    <string-array name="type_array">
+        <item>Doctor</item>
+        <item>Staff</item>
+        <item>Admin</item>
+    </string-array>
+</resources>
