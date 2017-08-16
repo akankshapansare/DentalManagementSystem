@@ -22,13 +22,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:recyclerview-v7:25.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     //Firebase Dependencies
     compile 'com.google.firebase:firebase-database:10.2.6'
     compile 'com.google.firebase:firebase-auth:10.2.6'
 
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:recyclerview-v7:25.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+
     testCompile 'junit:junit:4.12'
 
     //Espresso Framework

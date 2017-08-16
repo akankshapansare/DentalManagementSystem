@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.data.Patient;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
+import com.ap.dentalmanagementsystem.ui.fragment.ToothDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ public class DoctorAddTreatmentActivity extends AppCompatActivity {
     private FirebaseService firebaseService = FirebaseService.getInstance();
     private Patient patient;
     private Calendar calendar = Calendar.getInstance();
+    private EditText toothNumber;
 
     public static void start(Context context, Patient patient) {
         Intent intent = new Intent(context, DoctorAddTreatmentActivity.class);
@@ -50,9 +52,9 @@ public class DoctorAddTreatmentActivity extends AppCompatActivity {
         final TextView patientName = (TextView) findViewById(R.id.text_patient_name);
         patientName.setText(patient.getFirstName() + " " + patient.getLastName());
         final EditText treatmentName = (EditText) findViewById(R.id.text_treatment_name);
-        final EditText toothNumber = (EditText) findViewById(R.id.number_tooth);
+        toothNumber = (EditText) findViewById(R.id.number_tooth);
         final EditText labName = (EditText) findViewById(R.id.text_lab_name);
-        final EditText moreInfomation = (EditText) findViewById(R.id.text_more_information);
+        final EditText moreInformation = (EditText) findViewById(R.id.text_more_information);
         final EditText cost = (EditText) findViewById(R.id.number_cost);
         final EditText startDate = (EditText) findViewById(R.id.text_appointment_start_date);
         final EditText startTime = (EditText) findViewById(R.id.text_appointment_start_time);
@@ -131,7 +133,7 @@ public class DoctorAddTreatmentActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseService.addTreatment(patient, treatmentName.getText().toString(), toothNumber.getText().toString(), labName.getText().toString(), moreInfomation.getText().toString(), startDate.getText().toString(), startTime.getText().toString(), endTime.getText().toString(), Double.valueOf(cost.getText().toString()), new FirebaseService.CallBackI() {
+                firebaseService.addTreatment(patient, treatmentName.getText().toString(), toothNumber.getText().toString(), labName.getText().toString(), moreInformation.getText().toString(), startDate.getText().toString(), startTime.getText().toString(), endTime.getText().toString(), Double.valueOf(cost.getText().toString()), new FirebaseService.CallBackI() {
                     @Override
                     public void onCallBackComplete(String userID, String role) {
                         Toast.makeText(DoctorAddTreatmentActivity.this, "Treatment Added", Toast.LENGTH_SHORT).show();
@@ -147,11 +149,22 @@ public class DoctorAddTreatmentActivity extends AppCompatActivity {
 
             }
         });
+
+        toothNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToothDialogFragment.show(getFragmentManager());
+            }
+        });
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("INTENT_EXTRA_PATIENT", patient);
         super.onSaveInstanceState(outState);
+    }
+
+    public void onToothSaved(String toothSaved) {
+        toothNumber.setText(toothSaved);
     }
 }
