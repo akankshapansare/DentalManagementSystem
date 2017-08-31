@@ -135,5 +135,13 @@ public class StaffAddAppointmentActivity extends AppCompatActivity {
             }
         });
 
+        Button cancelButton = (Button) findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 }

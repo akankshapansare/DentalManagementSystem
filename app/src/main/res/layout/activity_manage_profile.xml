@@ -153,21 +153,23 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/button_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@color/button_color"
                 android:text="Save"
-                android:layout_margin="2dp"
                 android:textColor="@android:color/white" />
 
             <Button
+                android:id="@+id/button_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@color/button_color"
                 android:text="Cancel"
-                android:layout_margin="2dp"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 

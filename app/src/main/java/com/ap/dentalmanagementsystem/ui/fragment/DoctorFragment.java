@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.ui.activity.AddPatientActivity;
+import com.ap.dentalmanagementsystem.ui.activity.LoginActivity;
 import com.ap.dentalmanagementsystem.ui.activity.ManageProfileActivity;
 import com.ap.dentalmanagementsystem.ui.activity.SearchPatientActivity;
 import com.ap.dentalmanagementsystem.ui.adapter.DoctorFragmentAdapter;
@@ -119,6 +120,8 @@ public class DoctorFragment extends Fragment implements DoctorFragmentAdapter.Do
                 ManageProfileActivity.start(getActivity());
                 break;
             case LOG_OUT:
+                LoginActivity.start(getActivity());
+                getActivity().finish();
                 break;
         }
     }

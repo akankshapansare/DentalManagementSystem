@@ -16,12 +16,21 @@ import android.widget.Toast;
 
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.data.Patient;
+import com.ap.dentalmanagementsystem.network.API.FirebaseRestService;
 import com.ap.dentalmanagementsystem.network.API.IPatientListCallBack;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
 import com.ap.dentalmanagementsystem.ui.adapter.SearchPatientAdapter;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchPatientActivity extends AppCompatActivity implements SearchPatientAdapter.SearchPatientAdapterListener {
 
@@ -52,16 +61,39 @@ public class SearchPatientActivity extends AppCompatActivity implements SearchPa
         searchPatientAdapter = new SearchPatientAdapter(this, patientList, this);
         recyclerView.setAdapter(searchPatientAdapter);
 
-        firebaseService.showAllPatients(new IPatientListCallBack() {
+//        firebaseService.getAllPatients(new IPatientListCallBack() {
+//            @Override
+//            public void onCallBackComplete(List<Patient> patientList) {
+//                searchPatientAdapter.setPatientList(patientList);
+//                Toast.makeText(SearchPatientActivity.this, "Patients Displayed", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onCallBackFailed() {
+//                Toast.makeText(SearchPatientActivity.this, "Patients not displayed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        Call<JsonObject> call = FirebaseRestService.getInstance().getPatients();
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onCallBackComplete(List<Patient> patientList) {
-                searchPatientAdapter.setPatientList(patientList);
-                Toast.makeText(SearchPatientActivity.this, "Patients Displayed", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.isSuccessful()) {
+                    JsonObject jsonObject = response.body();
+                    List<Patient> patientList = new ArrayList<>();
+                    for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                        Patient patient = new Gson().fromJson(entry.getValue(), Patient.class);
+                        patientList.add(patient);
+                    }
+                    searchPatientAdapter.setPatientList(patientList);
+                    Toast.makeText(SearchPatientActivity.this, "Patients Displayed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SearchPatientActivity.this, "Server returned an error", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onCallBackFailed() {
-                Toast.makeText(SearchPatientActivity.this, "Patients not displayed", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(SearchPatientActivity.this, "Failed to contact to server or failed to parse data", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,6 +122,8 @@ public class SearchPatientActivity extends AppCompatActivity implements SearchPa
 
                 }
             }, query);
+
+
         }
     }
 
@@ -119,7 +153,7 @@ public class SearchPatientActivity extends AppCompatActivity implements SearchPa
                 DoctorAddTreatmentActivity.start(this, patient);
                 break;
             case "ADD_PRESCRIPTION":
-                DoctorAddPrescriptionActivity.start(this,patient);
+                DoctorAddPrescriptionActivity.start(this, patient);
                 break;
         }
     }

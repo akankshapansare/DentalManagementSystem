@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.ui.activity.AddPatientActivity;
+import com.ap.dentalmanagementsystem.ui.activity.LoginActivity;
 import com.ap.dentalmanagementsystem.ui.activity.ManageProfileActivity;
 import com.ap.dentalmanagementsystem.ui.activity.StaffAddAppointmentActivity;
 import com.ap.dentalmanagementsystem.ui.adapter.StaffFragmentAdapter;
@@ -28,7 +29,8 @@ public class StaffFragment extends Fragment implements StaffFragmentAdapter.Staf
     public enum StaffDrawerItem {
         ADD_PATIENT("Add Patient"),
         ADD_APPOINTMENT("Add Appointment"),
-        MANAGE_PROFILE("Manage Profile");
+        MANAGE_PROFILE("Manage Profile"),
+        LOG_OUT("Logout");
 
         private String title;
 
@@ -60,6 +62,7 @@ public class StaffFragment extends Fragment implements StaffFragmentAdapter.Staf
         optionList.add(StaffFragment.StaffDrawerItem.ADD_PATIENT);
         optionList.add(StaffFragment.StaffDrawerItem.ADD_APPOINTMENT);
         optionList.add(StaffFragment.StaffDrawerItem.MANAGE_PROFILE);
+        optionList.add(StaffFragment.StaffDrawerItem.LOG_OUT);
         recylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recylerView.setAdapter(new StaffFragmentAdapter(getActivity(), optionList, this));
         return view;
@@ -111,6 +114,10 @@ public class StaffFragment extends Fragment implements StaffFragmentAdapter.Staf
                 break;
             case MANAGE_PROFILE:
                 ManageProfileActivity.start(getActivity());
+                break;
+            case LOG_OUT:
+                LoginActivity.start(getActivity());
+                getActivity().finish();
                 break;
         }
     }

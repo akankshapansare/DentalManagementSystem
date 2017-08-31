@@ -38,7 +38,7 @@ public class DoctorAddPrescriptionActivity extends AppCompatActivity {
         }
 
         final TextView patientName = (TextView) findViewById(R.id.text_patient_name);
-        patientName.setText(patient.getFirstName() + " " + patient.getLastName() );
+        patientName.setText(patient.getFirstName() + " " + patient.getLastName());
 
         final EditText prescriptionNumber = (EditText) findViewById(R.id.number_prescription);
         final EditText drugName = (EditText) findViewById(R.id.text_drug_name);
@@ -50,7 +50,7 @@ public class DoctorAddPrescriptionActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseService.addPrescription(Double.valueOf(prescriptionNumber.getText().toString()), drugName.getText().toString(), Double.valueOf(quantity.getText().toString()), Integer.valueOf(frequencyInDay.getText().toString()), moreInformation.getText().toString(), new FirebaseService.CallBackI() {
+                firebaseService.addPrescription(prescriptionNumber.getText().toString(), drugName.getText().toString(), Double.valueOf(quantity.getText().toString()), Integer.valueOf(frequencyInDay.getText().toString()), moreInformation.getText().toString(), new FirebaseService.CallBackI() {
                     @Override
                     public void onCallBackComplete(String userID, String role) {
                         Toast.makeText(DoctorAddPrescriptionActivity.this, "Prescription Added", Toast.LENGTH_SHORT).show();
@@ -63,9 +63,17 @@ public class DoctorAddPrescriptionActivity extends AppCompatActivity {
                         Toast.makeText(DoctorAddPrescriptionActivity.this, "Prescription Added Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         });
+
+        Button cancelButton = (Button) findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     @Override

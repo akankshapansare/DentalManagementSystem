@@ -152,7 +152,7 @@ public class FirebaseService {
 
     }
 
-    public void addPrescription(double prescriptionNumber, String drugName, double quantity, int frequencyInDay, String moreInformation, final CallBackI callBackI) {
+    public void addPrescription(String prescriptionNumber, String drugName, double quantity, int frequencyInDay, String moreInformation, final CallBackI callBackI) {
         Prescription p = new Prescription(prescriptionNumber, drugName, quantity, frequencyInDay, moreInformation);
         firebaseDatabase.getReference("prescription").push().setValue(p, new DatabaseReference.CompletionListener() {
             @Override
@@ -294,7 +294,7 @@ public class FirebaseService {
 
     //Show All Patients
 
-    public void showAllPatients(final IPatientListCallBack iPatientListCallBack) {
+    public void getAllPatients(final IPatientListCallBack iPatientListCallBack) {
         firebaseDatabase.getReference("patients").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -314,6 +314,21 @@ public class FirebaseService {
         });
     }
 
+    // Manage Profile
+
+    public void manageProfile(String firstName, String lastName, String dateOfBirth, String sex, String address, String speciality, String mobileNumber, String emailId, final CallBackI callBackI) {
+        firebaseDatabase.getReference("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     public interface CallBackI {
 
         public void onCallBackComplete(String userID, String role);

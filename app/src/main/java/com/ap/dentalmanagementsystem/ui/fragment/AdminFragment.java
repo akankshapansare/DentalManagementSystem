@@ -15,6 +15,7 @@ import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.ui.activity.AddPatientActivity;
 import com.ap.dentalmanagementsystem.ui.activity.AdminAddDoctorActivity;
 import com.ap.dentalmanagementsystem.ui.activity.AdminAddStaffActivity;
+import com.ap.dentalmanagementsystem.ui.activity.LoginActivity;
 import com.ap.dentalmanagementsystem.ui.activity.ManageProfileActivity;
 import com.ap.dentalmanagementsystem.ui.adapter.AdminFragmentAdapter;
 
@@ -30,7 +31,8 @@ public class AdminFragment extends Fragment implements AdminFragmentAdapter.Admi
         ADD_DOCTOR("Add Doctor"),
         ADD_STAFF("Add Staff"),
         ADD_PATIENT("Add Patient"),
-        MANAGE_PROFILE("Manage Profile");
+        MANAGE_PROFILE("Manage Profile"),
+        LOG_OUT("Logout");
 
         private String title;
 
@@ -63,6 +65,7 @@ public class AdminFragment extends Fragment implements AdminFragmentAdapter.Admi
         optionList.add(AdminDrawerItem.ADD_STAFF);
         optionList.add(AdminDrawerItem.ADD_PATIENT);
         optionList.add(AdminDrawerItem.MANAGE_PROFILE);
+        optionList.add(AdminDrawerItem.LOG_OUT);
         recylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recylerView.setAdapter(new AdminFragmentAdapter(getActivity(), optionList, this));
         return view;
@@ -117,6 +120,10 @@ public class AdminFragment extends Fragment implements AdminFragmentAdapter.Admi
                 break;
             case MANAGE_PROFILE:
                 ManageProfileActivity.start(getActivity());
+                break;
+            case LOG_OUT:
+                LoginActivity.start(getActivity());
+                getActivity().finish();
                 break;
         }
     }

@@ -156,6 +156,14 @@ public class DoctorAddTreatmentActivity extends AppCompatActivity {
                 ToothDialogFragment.show(getFragmentManager());
             }
         });
+
+        Button cancelButton = (Button) findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

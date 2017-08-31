@@ -3,13 +3,13 @@ package com.ap.dentalmanagementsystem.data;
 
 public class Prescription {
 
-    private double prescriptionNumber;
+    private String prescriptionNumber;
     private String drugName;
     private double quantity;
     private int frequencyInDay;
     private String moreInformation;
 
-    public Prescription(double prescriptionNumber, String drugName, double quantity, int frequencyInDay, String moreInformation) {
+    public Prescription(String prescriptionNumber, String drugName, double quantity, int frequencyInDay, String moreInformation) {
         this.prescriptionNumber = prescriptionNumber;
         this.drugName = drugName;
         this.quantity = quantity;
@@ -17,11 +17,11 @@ public class Prescription {
         this.moreInformation = moreInformation;
     }
 
-    public double getPrescriptionNumber() {
+    public String getPrescriptionNumber() {
         return prescriptionNumber;
     }
 
-    public void setPrescriptionNumber(double prescriptionNumber) {
+    public void setPrescriptionNumber(String prescriptionNumber) {
         this.prescriptionNumber = prescriptionNumber;
     }
 
