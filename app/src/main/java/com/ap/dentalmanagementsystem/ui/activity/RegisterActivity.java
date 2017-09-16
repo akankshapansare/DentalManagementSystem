@@ -12,13 +12,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
+
+import javax.inject.Inject;
 
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private FirebaseService firebaseService = FirebaseService.getInstance();
+    @Inject
+    FirebaseService firebaseService;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, RegisterActivity.class);
@@ -28,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_register);
         final EditText firstNameEditText = (EditText) findViewById(R.id.text_first_name);
         final EditText lastNameEditText = (EditText) findViewById(R.id.text_last_name);

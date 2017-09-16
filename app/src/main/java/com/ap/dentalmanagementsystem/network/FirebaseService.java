@@ -31,19 +31,16 @@ import static android.content.ContentValues.TAG;
 
 //Singleton Class
 public class FirebaseService {
-    private static FirebaseService instance = null;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private final AppStateModel appStateModel;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
 
-    public static synchronized FirebaseService getInstance() {
-        if (instance == null) {
-            instance = new FirebaseService();
-        }
-        return instance;
-    }
-
-    private FirebaseService() {
-
+    public FirebaseService(FirebaseDatabase firebaseDatabase,
+                           FirebaseAuth firebaseAuth,
+                           AppStateModel appStateModel) {
+        this.firebaseDatabase = firebaseDatabase;
+        this.firebaseAuth = firebaseAuth;
+        this.appStateModel = appStateModel;
     }
 
     // Registration
@@ -81,7 +78,7 @@ public class FirebaseService {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     User myUser = dataSnapshot.getValue(User.class);
-                                    AppStateModel.getInstance().setCurrentUser(myUser);
+                                    appStateModel.setCurrentUser(myUser);
                                     callBackI.onCallBackComplete(user.getUid(), myUser.getRole());
                                 }
 
@@ -107,7 +104,6 @@ public class FirebaseService {
     }
 
     //Check if user is logged in or not
-
 
 
     //Doctor Methods
@@ -169,7 +165,7 @@ public class FirebaseService {
     //Admin Methods
 
     public void addStaff(String firstName, String lastName, String dateOfBirth, String sex, String address, String speciality, double mobileNumber, String email, String password, final CallBackI callBackI) {
-        Staff staff = new Staff(firstName, lastName,dateOfBirth, sex, address, speciality, mobileNumber, email, password);
+        Staff staff = new Staff(firstName, lastName, dateOfBirth, sex, address, speciality, mobileNumber, email, password);
         firebaseDatabase.getReference("staff").push().setValue(staff, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -204,11 +200,11 @@ public class FirebaseService {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Appointment> appointmentList = new ArrayList<Appointment>();
-                User myUser = AppStateModel.getInstance().getCurrentUser();
+                User myUser = appStateModel.getCurrentUser();
                 String userName = myUser.getFirstName() + " " + myUser.getLastName();
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     Appointment appointment = childSnapshot.getValue(Appointment.class);
-                    if(userName.equals(appointment.getDoctorName())) {
+                    if (userName.equals(appointment.getDoctorName())) {
                         // if (appointment.getStartDateTime() >= System.currentTimeMillis()) {
                         appointmentList.add(appointment);
                         //}
@@ -234,9 +230,9 @@ public class FirebaseService {
                 List<Appointment> appointmentList = new ArrayList<Appointment>();
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     Appointment appointment = childSnapshot.getValue(Appointment.class);
-                        // if (appointment.getStartDateTime() >= System.currentTimeMillis()) {
-                        appointmentList.add(appointment);
-                        //}
+                    // if (appointment.getStartDateTime() >= System.currentTimeMillis()) {
+                    appointmentList.add(appointment);
+                    //}
                 }
                 iAppointmentListCallBack.onCallBackComplete(appointmentList);
             }
@@ -248,7 +244,6 @@ public class FirebaseService {
             }
         });
     }
-
 
 
     // Staff Methods
@@ -329,6 +324,7 @@ public class FirebaseService {
             }
         });
     }
+
     public interface CallBackI {
 
         public void onCallBackComplete(String userID, String role);

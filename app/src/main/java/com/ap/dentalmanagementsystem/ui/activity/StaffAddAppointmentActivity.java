@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
 
@@ -21,11 +22,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 public class StaffAddAppointmentActivity extends AppCompatActivity {
 
 
     private Calendar calendar = Calendar.getInstance();
-    private FirebaseService firebaseService = FirebaseService.getInstance();
+    @Inject
+    FirebaseService firebaseService;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, StaffAddAppointmentActivity.class);
@@ -35,6 +39,7 @@ public class StaffAddAppointmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_staff_add_appointment);
 
         final EditText patientName = (EditText) findViewById(R.id.text_name_patient);

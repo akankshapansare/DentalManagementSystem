@@ -16,17 +16,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
-import com.ap.dentalmanagementsystem.model.AppStateModel;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
+
+import javax.inject.Inject;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     // The Idling Resource which will be null in production.
     @Nullable private CountingIdlingResource mIdlingResource = (CountingIdlingResource) getIdlingResource();
-    private FirebaseService firebaseService = FirebaseService.getInstance();
-    private AppStateModel appStateModel = AppStateModel.getInstance();
+    @Inject
+    FirebaseService firebaseService;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_login);
 
         final EditText emailEditText = (EditText) findViewById(R.id.text_email);

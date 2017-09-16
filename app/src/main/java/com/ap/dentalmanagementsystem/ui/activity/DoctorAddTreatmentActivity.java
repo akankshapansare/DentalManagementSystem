@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.data.Patient;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
@@ -24,10 +25,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 
 public class DoctorAddTreatmentActivity extends AppCompatActivity {
 
-    private FirebaseService firebaseService = FirebaseService.getInstance();
+    @Inject
+    FirebaseService firebaseService;
+
     private Patient patient;
     private Calendar calendar = Calendar.getInstance();
     private EditText toothNumber;
@@ -41,6 +46,7 @@ public class DoctorAddTreatmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_doctor_add_treatment);
 
         if (getIntent() != null) {

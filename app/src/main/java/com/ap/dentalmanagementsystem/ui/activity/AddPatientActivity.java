@@ -10,12 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.network.FirebaseService;
 
+import javax.inject.Inject;
+
 public class AddPatientActivity extends AppCompatActivity {
 
-    private FirebaseService firebaseService = FirebaseService.getInstance();
+    @Inject
+    FirebaseService firebaseService;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AddPatientActivity.class);
@@ -25,6 +29,7 @@ public class AddPatientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_add_patient);
 
         final EditText firstNameText = (EditText) findViewById(R.id.text_first_name);

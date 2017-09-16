@@ -5,18 +5,6 @@ import com.ap.dentalmanagementsystem.data.User;
 
 public class AppStateModel {
 
-    private AppStateModel() {
-    }
-
-    private static AppStateModel appStateModel;
-
-    public static AppStateModel getInstance() {
-        if (appStateModel == null) {
-            appStateModel = new AppStateModel();
-        }
-        return appStateModel;
-    }
-
     private User currentUser;
     private Patient currentPatient;
 

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.data.Appointment;
 import com.ap.dentalmanagementsystem.network.API.IAppointmentListCallBack;
@@ -26,11 +27,15 @@ import com.ap.dentalmanagementsystem.ui.fragment.StaffFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class HomeScreenActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private FirebaseService firebaseService = FirebaseService.getInstance();
+    @Inject
+    FirebaseService firebaseService;
+
     private String role;
 
     public static void start(Context context, String role) {
@@ -42,6 +47,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_home_screen);
 
         if (getIntent() != null) {

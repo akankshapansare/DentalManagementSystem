@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
+import com.ap.dentalmanagementsystem.DMSApplication;
 import com.ap.dentalmanagementsystem.R;
 import com.ap.dentalmanagementsystem.data.Patient;
 import com.ap.dentalmanagementsystem.network.API.FirebaseRestService;
@@ -28,13 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchPatientActivity extends AppCompatActivity implements SearchPatientAdapter.SearchPatientAdapterListener {
 
-    private FirebaseService firebaseService = FirebaseService.getInstance();
+    @Inject
+    FirebaseService firebaseService;
     private SearchPatientAdapter searchPatientAdapter;
     private String activityName;
 
@@ -47,6 +51,7 @@ public class SearchPatientActivity extends AppCompatActivity implements SearchPa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((DMSApplication) getApplication()).getAppComponent().inject(this);
         setContentView(R.layout.activity_search_patient);
 
         if (getIntent() != null) {
